@@ -1,6 +1,6 @@
 #include<stdio.h>
-#include<SharedTest_0.h>
-#include<SharedTest_1.h>
+#include<lib0.h>
+#include<lib1.h>
  
 int main(int argc, char** argv)
 {
