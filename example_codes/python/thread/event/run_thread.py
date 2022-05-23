@@ -20,7 +20,7 @@ def main():
     _thread_unlocked      = False
 
     for _i in range(0,10):
-        _thread_evt               = threading.Event()
+        _thread_evt         = threading.Event()
         _time               = time.time()
 
         _thread_evt_list.append(_thread_evt)
