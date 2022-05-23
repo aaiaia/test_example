@@ -12,6 +12,8 @@ def thread_test(number, float_time, thread_evt, timeout_100ms=10):
         time.sleep(0.1)
     thread_evt.set()    # event set to True
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
+    print(str(_currtime) + ', [' + str(number) + '], thread event to \'set\'')
+    _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
     print(str(_currtime) + ', thread_test, number is \'' + str(number) + '\', time: \'' + str(float_time) + '\' [end]')
 
 def main():
