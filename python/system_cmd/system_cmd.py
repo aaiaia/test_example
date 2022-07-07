@@ -95,9 +95,9 @@ def main(argv):
 
     """ return value and message"""
     print('[TEST] subprocess.getstatusoutput(...), \'ls -al\' start')
-    print('[START] subprocess.getstatusoutput([\'ls -al\'])')
-    _status, _message = subprocess.getstatusoutput(['ls -al'])
-    print('[ END ] subprocess.getstatusoutput([\'ls -al\'])')
+    print('[START] subprocess.getstatusoutput(\'ls -al\')')
+    _status, _message = subprocess.getstatusoutput('ls -al')
+    print('[ END ] subprocess.getstatusoutput(\'ls -al\')')
     print('>>> return_status: ', end='')
     print(_status)
     print('>>> return_message')
@@ -106,9 +106,9 @@ def main(argv):
     print('================================================================================')
 
     print('[TEST] subprocess.getstatusoutput(...), \'gcc\' start')
-    print('[START] subprocess.getstatusoutput([\'gcc\'])')
-    _status, _message = subprocess.getstatusoutput(['gcc'])
-    print('[ END ] subprocess.getstatusoutput([\'gcc\'])')
+    print('[START] subprocess.getstatusoutput(\'gcc\')')
+    _status, _message = subprocess.getstatusoutput('gcc')
+    print('[ END ] subprocess.getstatusoutput(\'gcc\')')
     print('>>> return_status: ', end='')
     print(_status)
     print('>>> return_message')
