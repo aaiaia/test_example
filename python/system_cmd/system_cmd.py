@@ -102,6 +102,9 @@ def main(argv):
     print(_status)
     print('>>> return_message')
     print(_message)
+    print('>>> alter char \\n to ;')
+    _alter_message = _message.replace('\n', '; ')
+    print(_alter_message)
     print('[TEST] subprocess.getstatusoutput(...), \'ls -al\' end')
     print('================================================================================')
 
@@ -113,6 +116,9 @@ def main(argv):
     print(_status)
     print('>>> return_message')
     print(_message)
+    print('>>> alter char \\n to ;')
+    _alter_message = _message.replace('\n', '; ')
+    print(_alter_message)
     print('[TEST] subprocess.getstatusoutput(...), \'gcc\' end')
     print('================================================================================')
 
