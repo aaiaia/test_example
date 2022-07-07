@@ -1,0 +1,133 @@
+import os
+import sys
+import subprocess
+
+def main(argv):
+    print('[arguments] start')
+    print(argv)
+    print('[arguments] end')
+    print('================================================================================')
+
+    """ return only value """
+    print('[TEST] os.system(...), \'ls -al\' start')
+    print('[START] os.system(\'ls -al\')')
+    _os_system_result = os.system('ls -al')
+    print('[ END ] os.system(\'ls -al\')')
+    print('>>> return type : ', end='')
+    print(type(_os_system_result))
+    print('>>> return value: ', end='')
+    print(_os_system_result)
+    print('[TEST] os.system(...), \'ls -al\' end')
+    print('================================================================================')
+
+    """ return only message"""
+    print('[TEST] os.popen(...).open(), \'ls -al\' start')
+    print('[START] os.popen(\'ls -al\').read()')
+    _os_popen_result = os.popen('ls -al').read()
+    print('[ END ] os.popen(\'ls -al\').read()')
+    print('>>> return type: ', end='')
+    print(type(_os_popen_result))
+    print('>>> return value')
+    print(_os_popen_result)
+    print('[TEST] os.popen(...).open(), \'ls -al\' end')
+    print('================================================================================')
+
+    print('[TEST] os.popen(...), \'ls -al\' start')
+    print('[START] os.popen(\'ls -al\')')
+    _ls_popen = os.popen('ls -al')
+    print('[ END ] os.popen(\'ls -al\')')
+    print('>>> return type: ', end='')
+    print(type(_ls_popen))
+    print('>>> return obeject: ', end='')
+    print(_ls_popen)
+    print('>>> return value')
+    print(_ls_popen.read())
+    print('[TEST] os.popen(...), \'ls -al\' end')
+    print('================================================================================')
+
+    """ return value and message"""
+    print('[TEST] subprocess.run(...), \'ls -al\' start')
+    print('[START] subprocess.run([\'ls\', \'-al\'], capture_output=True)')
+    _ls_sub_proc = subprocess.run(['ls', '-al'], capture_output=True)
+    print('[ END ] subprocess.run([\'ls\', \'-al\'], capture_output=True)')
+    print('>>> return_object.returncode: ', end='')
+    print(_ls_sub_proc.returncode)
+    # strout
+    print('>>> return_object.stdout type: ')
+    print(type(_ls_sub_proc.stdout))
+    print('>>> return_object.stdout')
+    print(_ls_sub_proc.stdout)
+    print('>>> return_object.stdout decoded to utf-8')
+    print(str(_ls_sub_proc.stdout, 'utf-8'))
+    # stderr
+    print('>>> return_object.stderr type: ')
+    print(type(_ls_sub_proc.stderr))
+    print('>>> return_object.stderr')
+    print(_ls_sub_proc.stderr)
+    print('>>> return_object.stderr decoded to utf-8')
+    print(str(_ls_sub_proc.stderr, 'utf-8'))
+    print('[TEST] subprocess.run(...), \'ls -al\' end')
+    print('================================================================================')
+
+    """ return value and message"""
+    print('[TEST] subprocess.run(...), \'gcc\' start')
+    print('[START] subprocess.run([\'gcc\'], capture_output=True)')
+    _gcc_sub_proc = subprocess.run(['gcc'], capture_output=True)
+    print('[ END ] subprocess.run([\'gcc\'], capture_output=True)')
+    print('>>> return_object.returncode: ', end='')
+    print(_gcc_sub_proc.returncode)
+    # strout
+    print('>>> return_object.stdout type: ')
+    print(type(_gcc_sub_proc.stdout))
+    print('>>> return_object.stdout')
+    print(_gcc_sub_proc.stdout)
+    print('>>> return_object.stdout decoded to utf-8')
+    print(str(_gcc_sub_proc.stdout, 'utf-8'))
+    # stderr
+    print('>>> return_object.stderr type: ')
+    print(type(_gcc_sub_proc.stderr))
+    print('>>> return_object.stderr')
+    print(_gcc_sub_proc.stderr)
+    print('>>> return_object.stderr decoded to utf-8')
+    print(str(_gcc_sub_proc.stderr, 'utf-8'))
+    print('[TEST] subprocess.run(...), \'gcc\' end')
+    print('================================================================================')
+
+    """ return value and message"""
+    print('[TEST] subprocess.getstatusoutput(...), \'ls -al\' start')
+    print('[START] subprocess.getstatusoutput([\'ls -al\'])')
+    _status, _message = subprocess.getstatusoutput(['ls -al'])
+    print('[ END ] subprocess.getstatusoutput([\'ls -al\'])')
+    print('>>> return_status: ', end='')
+    print(_status)
+    print('>>> return_message')
+    print(_message)
+    print('[TEST] subprocess.getstatusoutput(...), \'ls -al\' end')
+    print('================================================================================')
+
+    print('[TEST] subprocess.getstatusoutput(...), \'gcc\' start')
+    print('[START] subprocess.getstatusoutput([\'gcc\'])')
+    _status, _message = subprocess.getstatusoutput(['gcc'])
+    print('[ END ] subprocess.getstatusoutput([\'gcc\'])')
+    print('>>> return_status: ', end='')
+    print(_status)
+    print('>>> return_message')
+    print(_message)
+    print('[TEST] subprocess.getstatusoutput(...), \'gcc\' end')
+    print('================================================================================')
+
+    """ return only value """
+    print('[TEST] os.system(...), \'gcc\' start')
+    print('[START] os.system(\'gcc\')')
+    _os_system_result = os.system('gcc')
+    print('[ END ] os.system(\'gcc\')')
+    print('>>> return type : ', end='')
+    print(type(_os_system_result))
+    print('>>> return value: ', end='')
+    print(_os_system_result)
+    print('[TEST] os.system(...), \'gcc\' end')
+    print('================================================================================')
+
+    print('program closed')
+if __name__ == '__main__':
+    main(sys.argv)
