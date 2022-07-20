@@ -23,46 +23,56 @@ class changePath():
         print(str(__class__) + ' ' + _funcName)
         del self.objectVar
 
-    def exitst():
+    def exitst(self):
         _funcName = sys._getframe(0).f_code.co_name
         print(str(__class__) + ' ' + _funcName)
 
-    def globalSet():
+    def globalSet(self):
         _funcName = sys._getframe(0).f_code.co_name
         print(str(__class__) + ' ' + _funcName)
         changePath.classvar = dummyClass()
 
-    def globalUnset():
+    def globalUnset(self):
         _funcName = sys._getframe(0).f_code.co_name
         print(str(__class__) + ' ' + _funcName)
         del changePath.classvar
 
 class UnitTest_testModule1(unittest.TestCase):
     def setUp(self):
-        pass
+        _funcName = sys._getframe(0).f_code.co_name
+        print(str(__class__) + ' ' + _funcName)
 
     def tearDown(self):
-        pass
+        _funcName = sys._getframe(0).f_code.co_name
+        print(str(__class__) + ' ' + _funcName)
 
     def test_function1(self):
+        _funcName = sys._getframe(0).f_code.co_name
+        print(str(__class__) + ' ' + _funcName)
+
         _changePath = changePath()
         del _changePath
 
     def test_function2(self):
-        pass
+        _funcName = sys._getframe(0).f_code.co_name
+        print(str(__class__) + ' ' + _funcName)
 
 class UnitTest_testModule2(unittest.TestCase):
     def setUp(self):
-        pass
+        _funcName = sys._getframe(0).f_code.co_name
+        print(str(__class__) + ' ' + _funcName)
 
     def tearDown(self):
-        pass
+        _funcName = sys._getframe(0).f_code.co_name
+        print(str(__class__) + ' ' + _funcName)
 
     def test_function1(self):
-        pass
+        _funcName = sys._getframe(0).f_code.co_name
+        print(str(__class__) + ' ' + _funcName)
 
     def test_function2(self):
-        pass
+        _funcName = sys._getframe(0).f_code.co_name
+        print(str(__class__) + ' ' + _funcName)
 
 if __name__ == '__main__':
     unittest.main()
