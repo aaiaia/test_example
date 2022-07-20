@@ -58,6 +58,16 @@ class UnitTest_testModule1(unittest.TestCase):
         print(str(__class__) + ' ' + _funcName)
 
 class UnitTest_testModule2(unittest.TestCase):
+    @classmethod
+    def setUpClass(dummyArg):
+        _funcName = sys._getframe(0).f_code.co_name
+        print(str(__class__) + ' ' + _funcName)
+
+    @classmethod
+    def tearDownClass(dummyArg):
+        _funcName = sys._getframe(0).f_code.co_name
+        print(str(__class__) + ' ' + _funcName)
+
     def setUp(self):
         _funcName = sys._getframe(0).f_code.co_name
         print(str(__class__) + ' ' + _funcName)
