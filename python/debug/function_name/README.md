@@ -1,6 +1,6 @@
 # Example, get filename, function name and codeline
 ```bash
-pleya@pleya-x53:~/010_git_prj/test_example/python/debug/function_name$ python3 base.py
+$ python3 base.py
 -> call from main() function
 print direction:forward,   caller [file:function:line] -> base.py:main:9
 print direction:forward,  current [file:function:line] -> [IMPORTED_FILE_PATH]/imported_code0.py:function0:7
