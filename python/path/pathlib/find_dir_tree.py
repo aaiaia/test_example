@@ -30,19 +30,6 @@ def main(argv):
         _path = argv[1]
         _name = argv[2]
 
-        p = Path(_path)
-        if p.exists():
-            for child in p.iterdir():
-                print('\'' + str(type(child)) + '\', path: \'' + './' + str(child) + '\'', end='')
-                if child.is_dir():
-                    print(' is_dir?: ' + str(child.is_dir()))
-                elif child.is_file():
-                    print(' is_file?: ' + str(child.is_file()))
-                else:
-                    print(' is unknown')
-        else:
-            print('\'' + _path + '\' is not exist')
-
         print('Call search() function')
         search(_path, _name)
     else:
