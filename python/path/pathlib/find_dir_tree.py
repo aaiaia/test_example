@@ -3,12 +3,12 @@ import sys
 from enum import Enum
 from pathlib import Path
 
-class SEARCH_TYPE(Enum):
+class DEF_TYPE(Enum):
     ALL = 0
     FILE = 1
     DIR = 2
 
-def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_TYPE.ALL):
+def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.ALL):
     _ret_result = False
     _ret_path = ''
     if name != '':
@@ -17,11 +17,11 @@ def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_T
             for _child in _targetPath.iterdir():
                 """ determinant match with target, has 1st priority """
                 if _child.name == name:
-                    if search_type == SEARCH_TYPE.ALL:
+                    if search_type == DEF_TYPE.ALL:
                         _ret_result = True
-                    elif search_type == SEARCH_TYPE.DIR and _child.is_dir():
+                    elif search_type == DEF_TYPE.DIR and _child.is_dir():
                         _ret_result = True
-                    elif search_type == SEARCH_TYPE.FILE and _child.is_file():
+                    elif search_type == DEF_TYPE.FILE and _child.is_file():
                         _ret_result = True
                     else:
                         _ret_result = False
@@ -52,7 +52,7 @@ def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_T
 
     return _ret_result, _ret_path
 
-def test(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_TYPE.ALL):
+def test(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.ALL):
     _targetPath = Path(path)
     if _targetPath.exists():
         for _child in _targetPath.iterdir():
