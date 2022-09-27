@@ -22,8 +22,6 @@ def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_T
                 if _child.is_dir():
                     print('search directory into: ' + str(_child))
                     search(str(_child), name)
-                elif _child.is_file():
-                    pass
                 else:
                     pass
         else:
