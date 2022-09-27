@@ -10,6 +10,7 @@ class SEARCH_TYPE(Enum):
 
 def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_TYPE.ALL):
     _ret_result = False
+    _ret_path = ''
     if name != '':
         _targetPath = Path(path)
         if _targetPath.exists():
@@ -28,13 +29,13 @@ def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_T
 
                 if not _ret_result and _child.is_dir():
                     print('search directory into: ' + str(_child))
-                    _ret_result = search(str(_child), name)
+                    _ret_result, _ret_path = search(str(_child), name)
                 else:
                     pass
 
                 if _ret_result:
                     print('target is found: ', end='')
-                    print(str(_child))
+                    print(str(_ret_path))
                     break
 
         else:
@@ -42,7 +43,7 @@ def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_T
     else:
         print('name is blank, end search')
 
-    return _ret_result
+    return _ret_result, _ret_path
 
 def test(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_TYPE.ALL):
     _targetPath = Path(path)
