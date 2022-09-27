@@ -23,7 +23,17 @@ def search(path: str = './', name: str = '', ext: str = '', search_type: SEARCH_
         print('\'' + path + '\' is not exist')
 
 def main(argv):
-    _path = './examples'
+    print(argv)
+    HELP_MSG = 'python3 [SOURCE_FILE] [PATH] [NAME]'
+    _argvLen = len(argv)
+    if len(argv) == 3:
+        _path = argv[1]
+        _name = argv[2]
+    else:
+        print('arguments are invalid')
+        print(HELP_MSG)
+        return
+
     p = Path(_path)
     if p.exists():
         for child in p.iterdir():
@@ -38,7 +48,7 @@ def main(argv):
         print('error!!! \'' + _path + '\' is not exist')
 
     print('Call search() function')
-    search()
+    search(_path, _name)
 
 if __name__ == '__main__':
     main(sys.argv)
