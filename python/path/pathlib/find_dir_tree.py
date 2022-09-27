@@ -9,18 +9,19 @@ class SEARCH_TYPE(Enum):
     DIR = 2
 
 def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_TYPE.ALL):
-    _targetPath = Path(path)
-    if _targetPath.exists():
-        for _child in _targetPath.iterdir():
-            if _child.is_dir():
-                print('search directory into: ' + str(_child))
-                search(str(_child))
-            elif _child.is_file():
-                pass
-            else:
-                print('is unknown')
-    else:
-        print('\'' + path + '\' is not exist')
+    if name != '':
+        _targetPath = Path(path)
+        if _targetPath.exists():
+            for _child in _targetPath.iterdir():
+                if _child.is_dir():
+                    print('search directory into: ' + str(_child))
+                    search(str(_child), name)
+                elif _child.is_file():
+                    pass
+                else:
+                    print('is unknown')
+        else:
+            print('\'' + path + '\' is not exist')
 
 def test(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_TYPE.ALL):
     _targetPath = Path(path)
