@@ -35,7 +35,7 @@ def main():
     else:
         print('error!!! \'' + _testPath + '\' is not exist')
 
-    print('Call search function')
+    print('Call search() function')
     search()
 
 if __name__ == '__main__':
