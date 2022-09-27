@@ -23,8 +23,8 @@ def search(path: str = './', name: str = '', ext: str = '', search_type: SEARCH_
         print('\'' + path + '\' is not exist')
 
 def main(argv):
-    _testPath = './examples'
-    p = Path(_testPath)
+    _path = './examples'
+    p = Path(_path)
     if p.exists():
         for child in p.iterdir():
             print('\'' + str(type(child)) + '\', path: \'' + './' + str(child) + '\'', end='')
@@ -35,7 +35,7 @@ def main(argv):
             else:
                 print(' is unknown')
     else:
-        print('error!!! \'' + _testPath + '\' is not exist')
+        print('error!!! \'' + _path + '\' is not exist')
 
     print('Call search() function')
     search()
