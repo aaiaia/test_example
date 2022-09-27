@@ -15,6 +15,14 @@ def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_T
         if _targetPath.exists():
             for _child in _targetPath.iterdir():
                 if _child.name == name:
+                    if search_type == SEARCH_TYPE.ALL:
+                        pass  # True
+                    elif search_type == SEARCH_TYPE.DIR and _child.is_dir():
+                        pass  # True
+                    elif search_type == SEARCH_TYPE.FILE and _child.is_file():
+                        pass  # True
+                    else:
+                        pass  # False
                     _flag_found = True
                 else:
                     _flag_found = False
