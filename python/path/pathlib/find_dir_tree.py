@@ -9,10 +9,16 @@ class SEARCH_TYPE(Enum):
     DIR = 2
 
 def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_TYPE.ALL):
+
     if name != '':
         _targetPath = Path(path)
         if _targetPath.exists():
             for _child in _targetPath.iterdir():
+                if _child.name == name:
+                    _flag_found = True
+                else:
+                    _flag_found = False
+
                 if _child.is_dir():
                     print('search directory into: ' + str(_child))
                     search(str(_child), name)
