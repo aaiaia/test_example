@@ -1,3 +1,5 @@
+# for system
+import sys
 from enum import Enum
 from pathlib import Path
 
@@ -20,7 +22,7 @@ def search(path: str = './', name: str = '', ext: str = '', search_type: SEARCH_
     else:
         print('\'' + path + '\' is not exist')
 
-def main():
+def main(argv):
     _testPath = './examples'
     p = Path(_testPath)
     if p.exists():
@@ -39,4 +41,4 @@ def main():
     search()
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv)
