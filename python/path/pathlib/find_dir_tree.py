@@ -29,6 +29,8 @@ def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_T
 
                 if _ret_result:
                     _ret_path = str(_child)
+                    print('target is found: ', end='')
+                    print(str(_ret_path))
 
                 if not _ret_result and _child.is_dir():
                     print('search directory into: ' + str(_child))
@@ -37,8 +39,6 @@ def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_T
                     pass
 
                 if _ret_result:
-                    print('target is found: ', end='')
-                    print(str(_ret_path))
                     break
 
         else:
