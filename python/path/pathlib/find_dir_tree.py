@@ -15,6 +15,7 @@ def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_T
         _targetPath = Path(path)
         if _targetPath.exists():
             for _child in _targetPath.iterdir():
+                """ determinant match with target, has 1st priority """
                 if _child.name == name:
                     if search_type == SEARCH_TYPE.ALL:
                         _ret_result = True
@@ -27,17 +28,20 @@ def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_T
                 else:
                     _ret_result = False
 
+                """ set target path info, has 2nd priority """
                 if _ret_result:
                     _ret_path = str(_child)
                     print('target is found: ', end='')
                     print(str(_ret_path))
 
+                """ if not match with target and _child is directory, go into it, has 3rd priority """
                 if not _ret_result and _child.is_dir():
                     print('search directory into: ' + str(_child))
                     _ret_result, _ret_path = search(str(_child), name)
                 else:
                     pass
 
+                """ if target is found, just break for statement, has lowest priority """
                 if _ret_result:
                     break
 
