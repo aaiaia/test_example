@@ -75,7 +75,11 @@ def main(argv):
         _name = argv[2]
 
         print('Call search() function')
-        search(_path, _name)
+        _found_result, _found_path = search(_path, _name)
+        if _found_result:
+            print('search() path: ' + _found_path)
+        else:
+            print('search() failed: ' + _name)
 
         print('Call test() function')
         test(_path, _name)
