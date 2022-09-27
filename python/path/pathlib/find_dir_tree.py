@@ -16,18 +16,17 @@ def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_T
             for _child in _targetPath.iterdir():
                 if _child.name == name:
                     if search_type == SEARCH_TYPE.ALL:
-                        pass  # True
+                        _flag_found = True
                     elif search_type == SEARCH_TYPE.DIR and _child.is_dir():
-                        pass  # True
+                        _flag_found = True
                     elif search_type == SEARCH_TYPE.FILE and _child.is_file():
-                        pass  # True
+                        _flag_found = True
                     else:
-                        pass  # False
-                    _flag_found = True
+                        _flag_found = False
                 else:
                     _flag_found = False
 
-                if _child.is_dir():
+                if not _flag_found and _child.is_dir():
                     print('search directory into: ' + str(_child))
                     search(str(_child), name)
                 else:
