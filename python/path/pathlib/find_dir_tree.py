@@ -8,7 +8,7 @@ class SEARCH_TYPE(Enum):
     FILE = 1
     DIR = 2
 
-def search(path: str = './', name: str = '', ext: str = '', search_type: SEARCH_TYPE = SEARCH_TYPE.ALL):
+def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_TYPE.ALL):
     _targetPath = Path(path)
     if _targetPath.exists():
         for _child in _targetPath.iterdir():
@@ -22,7 +22,7 @@ def search(path: str = './', name: str = '', ext: str = '', search_type: SEARCH_
     else:
         print('\'' + path + '\' is not exist')
 
-def test(path: str = './', name: str = '', ext: str = '', search_type: SEARCH_TYPE = SEARCH_TYPE.ALL):
+def test(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_TYPE.ALL):
     _targetPath = Path(path)
     if _targetPath.exists():
         for _child in _targetPath.iterdir():
