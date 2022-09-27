@@ -25,7 +25,7 @@ def search(path: str = './', name: str = '', ext: str = '', search_type: SEARCH_
 def main(argv):
     print(argv)
     HELP_MSG = 'python3 [SOURCE_FILE] [PATH] [NAME]'
-    _argvLen = len(argv)
+
     if len(argv) == 3:
         _path = argv[1]
         _name = argv[2]
