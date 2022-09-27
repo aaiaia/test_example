@@ -46,6 +46,9 @@ def main(argv):
 
         print('Call search() function')
         search(_path, _name)
+
+        print('Call test() function')
+        test(_path, _name)
     else:
         print('arguments are invalid')
         print(HELP_MSG)
