@@ -41,7 +41,7 @@ def main(argv):
                 else:
                     print(' is unknown')
         else:
-            print('error!!! \'' + _path + '\' is not exist')
+            print('\'' + _path + '\' is not exist')
 
         print('Call search() function')
         search(_path, _name)
