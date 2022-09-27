@@ -14,11 +14,10 @@ def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_T
         for _child in _targetPath.iterdir():
             print('\'' + str(type(_child)) + '\', path: \'' + './' + str(_child) + '\'', end='')
             if _child.is_dir():
-                print(' is_dir?: ' + str(_child.is_dir()))
                 print('search directory into: ' + str(_child))
                 search(str(_child))
             elif _child.is_file():
-                print(' is_file?: ' + str(_child.is_file()))
+                pass
             else:
                 print('is unknown')
     else:
@@ -28,14 +27,14 @@ def test(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_TYP
     _targetPath = Path(path)
     if _targetPath.exists():
         for _child in _targetPath.iterdir():
-            print('\'' + str(type(_child)) + '\', path: \'' + './' + str(_child) + '\'', end='')
+            print('\'' + str(type(_child)) + '\', \'' + './' + str(_child) + '\'', end='')
             if _child.is_dir():
-                print(' is_dir?: ' + str(_child.is_dir()), end='')
+                print(' is_directory', end='')
                 print(' name: ' + _child.name)
                 print('search directory into: ' + str(_child))
                 test(str(_child))
             elif _child.is_file():
-                print(' is_file?: ' + str(_child.is_file()), end='')
+                print(' is_file', end='')
                 print(' name: ' + _child.name)
             else:
                 print('is unknown')
