@@ -12,7 +12,7 @@ def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_T
     _targetPath = Path(path)
     if _targetPath.exists():
         for _child in _targetPath.iterdir():
-            print('\'' + str(type(_child)) + '\', path: \'' + './' + str(_child) + '\'')
+            print(str(type(_child)) + ', path: ' + './' + str(_child) + '')
             if _child.is_dir():
                 print('search directory into: ' + str(_child))
                 search(str(_child))
@@ -27,7 +27,7 @@ def test(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_TYP
     _targetPath = Path(path)
     if _targetPath.exists():
         for _child in _targetPath.iterdir():
-            print('\'' + str(type(_child)) + '\', \'' + './' + str(_child) + '\'', end='')
+            print(str(type(_child)) + ', ' + './' + str(_child) + '', end='')
             if _child.is_dir():
                 print(' is_directory', end='')
                 print(' name: ' + _child.name)
