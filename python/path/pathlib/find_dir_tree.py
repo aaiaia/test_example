@@ -52,7 +52,7 @@ def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.AL
 
     return _ret_result, _ret_path
 
-def test(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.ALL):
+def test(path: str = './', name: str = ''):
     _targetPath = Path(path)
     if _targetPath.exists():
         for _child in _targetPath.iterdir():
