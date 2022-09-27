@@ -19,7 +19,7 @@ def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_T
                 elif _child.is_file():
                     pass
                 else:
-                    print('is unknown')
+                    pass
         else:
             print('\'' + path + '\' is not exist')
     else:
