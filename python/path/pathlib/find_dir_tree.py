@@ -22,6 +22,8 @@ def search(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_T
                     print('is unknown')
         else:
             print('\'' + path + '\' is not exist')
+    else:
+        print('name is blank, end search')
 
 def test(path: str = './', name: str = '', search_type: SEARCH_TYPE = SEARCH_TYPE.ALL):
     _targetPath = Path(path)
