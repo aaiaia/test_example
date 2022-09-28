@@ -44,10 +44,10 @@ def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.AL
                 """ if not match with target and _child is directory, go into it, has 3rd priority """
                 if not _ret_result and _child.is_dir():
                     if depth < 0:  # unlimited depth case
-                        print('search directory into: ' + str(_child))
+                        print('search into: ' + str(_child))
                         _ret_result, _ret_path = search(str(_child), name, search_type)
                     elif depth > __depth:
-                        print('search directory into: ' + str(_child))
+                        print('search into: ' + str(_child))
                         _ret_result, _ret_path = search(str(_child), name, search_type, depth, __depth+1)
                     else:
                         pass  # depth is end case
@@ -73,7 +73,7 @@ def test(path: str = './', name: str = ''):
             if _child.is_dir():
                 print(' is_directory', end='')
                 print(' name: ' + _child.name)
-                print('search directory into: ' + str(_child))
+                print('search into: ' + str(_child))
                 test(str(_child))
             elif _child.is_file():
                 print(' is_file', end='')
