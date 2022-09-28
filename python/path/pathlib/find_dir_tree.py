@@ -11,7 +11,10 @@ class DEF_TYPE(Enum):
     FILE = 1
     DIR = 2
 
-def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.ALL):
+class DEF_DEPTH(Enum):
+    UNLIMIT = -1
+
+def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.ALL, depth: int = DEF_DEPTH.UNLIMIT, __depth: int = 0):
     _ret_result = False
     _ret_path = ''
     if name != '':
