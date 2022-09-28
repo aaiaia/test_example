@@ -15,7 +15,7 @@ class DEF_TYPE(Enum):
 class DEF_DEPTH(IntEnum):
     UNLIMITED = -1
 
-def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.ALL, depth: int = DEF_DEPTH.UNLIMIT, __depth: int = 0):
+def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.ALL, depth: int = DEF_DEPTH.UNLIMITED, __depth: int = 0):
     _ret_result = False
     _ret_path = ''
     if name != '':
