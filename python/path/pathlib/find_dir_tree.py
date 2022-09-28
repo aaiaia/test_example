@@ -1,7 +1,10 @@
 # for system
 import sys
-from enum import Enum
 from pathlib import Path
+# for data type
+from enum import Enum
+# for debugging
+import getopt
 
 class DEF_TYPE(Enum):
     ALL = 0
@@ -73,6 +76,37 @@ def test(path: str = './', name: str = ''):
 def main(argv):
     print(argv)
     HELP_MSG = 'python3 [SOURCE_FILE] [PATH] [NAME]'
+
+    _test = False
+    _path = './'
+    _name = ''
+    _type = DEF_TYPE.ALL
+
+    try:
+        # opts: getopt 옵션에 따라 파싱 ex) [('-i', 'myinstancce1')]
+        # etc_args: getopt 옵션 이외에 입력된 일반 Argument
+        # argv 첫번째(index:0)는 파일명, 두번째(index:1)부터 Arguments
+        opts, etc_args = getopt.getopt(argv[1:], \
+            "ht:p:", ["help", 'test=', "type="])
+    except getopt.GetoptError: # 옵션지정이 올바르지 않은 경우
+        print(HELP_MSG)
+        sys.exit(2)
+
+    for opt, arg in opts: # 옵션이 파싱된 경우
+        if opt in ("-h", "--help"): # HELP 요청인 경우 사용법 출력
+            print(HELP_MSG)
+            sys.exit(2)
+        elif opt in ("-t", "--test"):
+            _test = True
+        elif opt in ("-p", "--type"):
+            _type = arg
+            if _type == 'file' or _type == 'FILE':
+                _type = DEF_TYPE.FILE
+            elif  _type == 'dir' or _type == 'DIR':
+                _type = DEF_TYPE.DIR
+            elif  _type == 'all' or _type == 'ALL':
+                _type = DEF_TYPE.ALL
+            print('set type: ' + str(_type))
 
     if len(argv) == 3:
         _path = argv[1]
