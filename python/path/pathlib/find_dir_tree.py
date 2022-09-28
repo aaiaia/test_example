@@ -75,7 +75,7 @@ def test(path: str = './', name: str = ''):
 
 def main(argv):
     print(argv)
-    HELP_MSG = 'python3 [SOURCE_FILE] [PATH] [NAME]'
+    HELP_MSG = 'python3 [SOURCE_FILE] [PATH] [NAME] --type=[TYPE=all/dir/file] --help --test[TEST ONLY, highest priority]\npython3 [SOURCE_FILE] --path=[PATH] --name=[NAME] --type=[TYPE=all/dir/file] --help --test[TEST ONLY, highest priority])'
 
     _test = False
     _path = ''
