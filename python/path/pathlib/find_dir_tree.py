@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 # for data type
 from enum import Enum
+from enum import IntEnum
 # for debugging
 import getopt
 
@@ -11,8 +12,8 @@ class DEF_TYPE(Enum):
     FILE = 1
     DIR = 2
 
-class DEF_DEPTH(Enum):
-    UNLIMIT = -1
+class DEF_DEPTH(IntEnum):
+    UNLIMITED = -1
 
 def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.ALL, depth: int = DEF_DEPTH.UNLIMIT, __depth: int = 0):
     _ret_result = False
