@@ -122,7 +122,6 @@ def main(argv):
         else:
             print('arguments are invalid')
             print(HELP_MSG)
-            return
     else:
         print('Call test() function')
         test(_path, _name)
