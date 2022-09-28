@@ -86,8 +86,13 @@ def main(argv):
         # opts: getopt 옵션에 따라 파싱 ex) [('-i', 'myinstancce1')]
         # etc_args: getopt 옵션 이외에 입력된 일반 Argument
         # argv 첫번째(index:0)는 파일명, 두번째(index:1)부터 Arguments
+        etc_args = []
         opts, etc_args = getopt.getopt(argv[1:], \
-            "ht:p:", ["help", 'test=', "type="])
+            "h:tp:", ["help", 'test', "type="])
+        if etc_args != []:
+            opts, etc_args = getopt.getopt(argv[3:], \
+                "h:tp:", ["help", 'test', "type="])
+
     except getopt.GetoptError: # 옵션지정이 올바르지 않은 경우
         print(HELP_MSG)
         sys.exit(2)
@@ -98,6 +103,7 @@ def main(argv):
             sys.exit(2)
         elif opt in ("-t", "--test"):
             _test = True
+            print('set test mode')
         elif opt in ("-p", "--type"):
             _type = arg
             if _type == 'file' or _type == 'FILE':
