@@ -78,7 +78,7 @@ def main(argv):
     HELP_MSG = 'python3 [SOURCE_FILE] [PATH] [NAME]'
 
     _test = False
-    _path = './'
+    _path = ''
     _name = ''
     _type = DEF_TYPE.ALL
 
@@ -88,10 +88,10 @@ def main(argv):
         # argv 첫번째(index:0)는 파일명, 두번째(index:1)부터 Arguments
         etc_args = []
         opts, etc_args = getopt.getopt(argv[1:], \
-            "h:tp:", ["help", 'test', "type="])
+            "h:tp:n:e:", ["help", "test", "path=", "name=", "type="])
         if etc_args != []:
             opts, etc_args = getopt.getopt(argv[3:], \
-                "h:tp:", ["help", 'test', "type="])
+                "h:te:", ["help", "test", "type="])
 
     except getopt.GetoptError: # 옵션지정이 올바르지 않은 경우
         print(HELP_MSG)
@@ -104,7 +104,13 @@ def main(argv):
         elif opt in ("-t", "--test"):
             _test = True
             print('set test mode')
-        elif opt in ("-p", "--type"):
+        elif opt in ("-p", "--path"):
+            _path = arg
+            print('set path: ' + _path)
+        elif opt in ("-n", "--name"):
+            _name = arg
+            print('set name: ' + _name)
+        elif opt in ("-e", "--type"):
             _type = arg
             if _type == 'file' or _type == 'FILE':
                 _type = DEF_TYPE.FILE
@@ -116,8 +122,10 @@ def main(argv):
 
     if not _test:
         if len(argv) >= 3:
-            _path = argv[1]
-            _name = argv[2]
+            if _path == '': _path = argv[1]
+            if _name == '': _name = argv[2]
+            print('search path: ' + _path)
+            print('search name: ' + _name)
 
             print('Call search() function')
             _found_result, _found_path = search(_path, _name, _type)
