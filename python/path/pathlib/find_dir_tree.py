@@ -44,6 +44,7 @@ def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.AL
                 """ if not match with target and _child is directory, go into it, has 3rd priority """
                 if not _ret_result and _child.is_dir():
                     if depth < 0:  # unlimited depth case
+                        print('search directory into: ' + str(_child))
                         _ret_result, _ret_path = search(str(_child), name, search_type)
                     elif depth > __depth:
                         print('search directory into: ' + str(_child))
