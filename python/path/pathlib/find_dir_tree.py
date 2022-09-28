@@ -40,7 +40,7 @@ def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.AL
                 """ if not match with target and _child is directory, go into it, has 3rd priority """
                 if not _ret_result and _child.is_dir():
                     print('search directory into: ' + str(_child))
-                    _ret_result, _ret_path = search(str(_child), name)
+                    _ret_result, _ret_path = search(str(_child), name, search_type)
                 else:
                     pass
 
@@ -108,12 +108,12 @@ def main(argv):
                 _type = DEF_TYPE.ALL
             print('set type: ' + str(_type))
 
-    if len(argv) == 3:
+    if len(argv) >= 3:
         _path = argv[1]
         _name = argv[2]
 
         print('Call search() function')
-        _found_result, _found_path = search(_path, _name)
+        _found_result, _found_path = search(_path, _name, _type)
         if _found_result:
             print('search() path: ' + _found_path)
         else:
