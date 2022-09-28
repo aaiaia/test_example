@@ -43,7 +43,7 @@ def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.AL
 
                 """ if not match with target and _child is directory, go into it, has 3rd priority """
                 if not _ret_result and _child.is_dir():
-                    if depth < 0:
+                    if depth < 0:  # unlimited depth case
                         _ret_result, _ret_path = search(str(_child), name, search_type)
                     elif depth > __depth:
                         print('search directory into: ' + str(_child))
@@ -88,6 +88,7 @@ def main(argv):
     _path = ''
     _name = ''
     _type = DEF_TYPE.ALL
+    _depth = DEF_DEPTH.UNLIMITED  # int type
 
     try:
         # opts: getopt 옵션에 따라 파싱 ex) [('-i', 'myinstancce1')]
@@ -95,10 +96,10 @@ def main(argv):
         # argv 첫번째(index:0)는 파일명, 두번째(index:1)부터 Arguments
         etc_args = []
         opts, etc_args = getopt.getopt(argv[1:], \
-            "h:tp:n:e:", ["help", "test", "path=", "name=", "type="])
+            "h:tp:n:e:d:", ["help", "test", "path=", "name=", "type=", "depth="])
         if etc_args != []:
             opts, etc_args = getopt.getopt(argv[3:], \
-                "h:te:", ["help", "test", "type="])
+                "h:te:d", ["help", "test", "type=", "depth="])
 
     except getopt.GetoptError: # 옵션지정이 올바르지 않은 경우
         print(HELP_MSG)
@@ -126,6 +127,10 @@ def main(argv):
             elif  _type == 'all' or _type == 'ALL':
                 _type = DEF_TYPE.ALL
             print('set type: ' + str(_type))
+        elif opt in ("-d", "--depth"):
+            _depth = int(arg)
+            print('set depth(int): ' + str(_depth))
+
 
     if not _test:
         if len(argv) >= 3:
@@ -135,7 +140,7 @@ def main(argv):
             print('search name: ' + _name)
 
             print('Call search() function')
-            _found_result, _found_path = search(_path, _name, _type)
+            _found_result, _found_path = search(_path, _name, _type, _depth)
             if _found_result:
                 print('search() path: ' + _found_path)
             else:
