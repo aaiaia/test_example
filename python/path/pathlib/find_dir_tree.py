@@ -108,23 +108,24 @@ def main(argv):
                 _type = DEF_TYPE.ALL
             print('set type: ' + str(_type))
 
-    if len(argv) >= 3:
-        _path = argv[1]
-        _name = argv[2]
+    if not _test:
+        if len(argv) >= 3:
+            _path = argv[1]
+            _name = argv[2]
 
-        print('Call search() function')
-        _found_result, _found_path = search(_path, _name, _type)
-        if _found_result:
-            print('search() path: ' + _found_path)
+            print('Call search() function')
+            _found_result, _found_path = search(_path, _name, _type)
+            if _found_result:
+                print('search() path: ' + _found_path)
+            else:
+                print('search() failed: ' + _name)
+
+            print('Call test() function')
+            test(_path, _name)
         else:
-            print('search() failed: ' + _name)
-
-        print('Call test() function')
-        test(_path, _name)
-    else:
-        print('arguments are invalid')
-        print(HELP_MSG)
-        return
+            print('arguments are invalid')
+            print(HELP_MSG)
+            return
 
 if __name__ == '__main__':
     main(sys.argv)
