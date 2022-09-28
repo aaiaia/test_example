@@ -119,13 +119,13 @@ def main(argv):
                 print('search() path: ' + _found_path)
             else:
                 print('search() failed: ' + _name)
-
-            print('Call test() function')
-            test(_path, _name)
         else:
             print('arguments are invalid')
             print(HELP_MSG)
             return
+    else:
+        print('Call test() function')
+        test(_path, _name)
 
 if __name__ == '__main__':
     main(sys.argv)
