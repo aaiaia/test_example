@@ -105,6 +105,7 @@ def main(argv):
     _name = ''
     _type = DEF_TYPE.ALL
     _depth = DEF_DEPTH.UNLIMITED  # int type
+    _ignore_dir_list = []
 
     try:
         # opts: getopt 옵션에 따라 파싱 ex) [('-i', 'myinstancce1')]
@@ -112,10 +113,10 @@ def main(argv):
         # argv 첫번째(index:0)는 파일명, 두번째(index:1)부터 Arguments
         etc_args = []
         opts, etc_args = getopt.getopt(argv[1:], \
-            "h:tp:n:e:d:", ["help", "test", "path=", "name=", "type=", "depth="])
+            "h:tp:n:e:d:i:", ["help", "test", "path=", "name=", "type=", "depth=", "ignore_dir="])
         if etc_args != []:
             opts, etc_args = getopt.getopt(argv[3:], \
-                "h:te:d", ["help", "test", "type=", "depth="])
+                "h:te:d:i:", ["help", "test", "type=", "depth=", "ignore_dir="])
 
     except getopt.GetoptError: # 옵션지정이 올바르지 않은 경우
         print(HELP_MSG)
@@ -146,7 +147,8 @@ def main(argv):
         elif opt in ("-d", "--depth"):
             _depth = int(arg)
             print('set depth(int): ' + str(_depth))
-
+        elif opt in ("-i", "--ignore_dir"):
+            print(arg)
 
     if not _test:
         if len(argv) >= 3:
