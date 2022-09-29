@@ -43,6 +43,7 @@ def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.AL
 
                 """ if not match with target and _child is directory, go into it, has 3rd priority """
                 if not _ret_result and _child.is_dir():
+                    """ checking ignoring directory """
                     _flag_ignoring_dir = False
                     for _ignore_dir in ignore_dir_list:
                         if _ignore_dir == _child.name:
@@ -51,14 +52,16 @@ def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.AL
                         else:
                             pass
 
-                    if depth < 0:  # unlimited depth case
-                        print('search into: ' + str(_child))
-                        _ret_result, _ret_path = search(str(_child), name, search_type)
-                    elif depth > __depth:
-                        print('search into: ' + str(_child))
-                        _ret_result, _ret_path = search(str(_child), name, search_type, depth, __depth+1)
-                    else:
-                        pass  # depth is end case
+                    """ checking ignoring directory """
+                    if not _flag_ignoring_dir:
+                        if depth < 0:  # unlimited depth case
+                            print('search into: ' + str(_child))
+                            _ret_result, _ret_path = search(str(_child), name, search_type)
+                        elif depth > __depth:
+                            print('search into: ' + str(_child))
+                            _ret_result, _ret_path = search(str(_child), name, search_type, depth, __depth+1)
+                        else:
+                            pass  # depth is end case
                 else:
                     pass
 
