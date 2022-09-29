@@ -56,14 +56,14 @@ def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.AL
                     if not _flag_ignoring_dir:
                         if depth < 0:  # unlimited depth case
                             print('search into: ' + str(_child))
-                            _ret_result, _ret_path = search(str(_child), name, search_type)
+                            _ret_result, _ret_path = search(str(_child), name, search_type, ignore_dir_list)
                         elif depth > __depth:
                             print('search into: ' + str(_child))
-                            _ret_result, _ret_path = search(str(_child), name, search_type, depth, __depth+1)
+                            _ret_result, _ret_path = search(str(_child), name, search_type, ignore_dir_list, depth, __depth+1)
                         else:
                             pass  # depth is end case
                     else:
-                        pass
+                        print('directory is ignored: ' + _child.name)
                 else:
                     pass
 
@@ -159,7 +159,7 @@ def main(argv):
             print('search name: ' + _name)
 
             print('Call search() function')
-            _found_result, _found_path = search(_path, _name, _type, [], _depth)
+            _found_result, _found_path = search(_path, _name, _type, _ignore_dir_list, _depth)
             if _found_result:
                 print('search() path: ' + _found_path)
             else:
