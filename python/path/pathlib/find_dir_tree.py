@@ -62,6 +62,8 @@ def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.AL
                             _ret_result, _ret_path = search(str(_child), name, search_type, depth, __depth+1)
                         else:
                             pass  # depth is end case
+                    else:
+                        pass
                 else:
                     pass
 
