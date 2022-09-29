@@ -98,7 +98,7 @@ def test(path: str = './', name: str = ''):
 
 def main(argv):
     print(argv)
-    HELP_MSG = 'python3 [SOURCE_FILE] [PATH] [NAME] --type=[TYPE=all/dir/file] --help --test[TEST ONLY, highest priority]\npython3 [SOURCE_FILE] --path=[PATH] --name=[NAME] --type=[TYPE=all/dir/file] --help --test[TEST ONLY, highest priority])'
+    HELP_MSG = 'python3 [SOURCE_FILE] [PATH] [NAME] --type=[TYPE=all/dir/file] --ignore_dir={[DIR_NAME0],[DIR_NAME1]} --help --test[TEST ONLY, highest priority]\npython3 [SOURCE_FILE] --path=[PATH] --name=[NAME] --type=[TYPE=all/dir/file] --ignore_dir={[DIR_NAME0],[DIR_NAME1]} --help --test[TEST ONLY, highest priority])'
 
     _test = False
     _path = ''
@@ -148,7 +148,8 @@ def main(argv):
             _depth = int(arg)
             print('set depth(int): ' + str(_depth))
         elif opt in ("-i", "--ignore_dir"):
-            print(arg)
+            _ignore_dir_list.append(arg)
+            print('set ignore dir list: ' + str(_ignore_dir_list))
 
     if not _test:
         if len(argv) >= 3:
