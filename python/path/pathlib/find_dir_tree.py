@@ -15,7 +15,7 @@ class DEF_TYPE(Enum):
 class DEF_DEPTH(IntEnum):
     UNLIMITED = -1
 
-def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.ALL, depth: int = DEF_DEPTH.UNLIMITED, __depth: int = 0):
+def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.ALL, ignore_dir_list: list = [], depth: int = DEF_DEPTH.UNLIMITED, __depth: int = 0):
     _ret_result = False
     _ret_path = ''
     if name != '':
@@ -43,6 +43,14 @@ def search(path: str = './', name: str = '', search_type: DEF_TYPE = DEF_TYPE.AL
 
                 """ if not match with target and _child is directory, go into it, has 3rd priority """
                 if not _ret_result and _child.is_dir():
+                    _flag_ignoring_dir = False
+                    for _ignore_dir in ignore_dir_list:
+                        if _ignore_dir == _child.name:
+                            _flag_ignoring_dir = True
+                            break
+                        else:
+                            pass
+
                     if depth < 0:  # unlimited depth case
                         print('search into: ' + str(_child))
                         _ret_result, _ret_path = search(str(_child), name, search_type)
@@ -143,7 +151,7 @@ def main(argv):
             print('search name: ' + _name)
 
             print('Call search() function')
-            _found_result, _found_path = search(_path, _name, _type, _depth)
+            _found_result, _found_path = search(_path, _name, _type, [], _depth)
             if _found_result:
                 print('search() path: ' + _found_path)
             else:
