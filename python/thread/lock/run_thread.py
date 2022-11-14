@@ -5,26 +5,26 @@ import threading
 
 from pytz import timezone
 
-def thread_test(number, float_time, thread_lock, timeout_100ms=1):
+def thread_test(thread_number, float_time, thread_lock, timeout_100ms=1):
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-    print(str(_currtime) + ', thread_test, number is \'' + str(number) + '\', time: \'' + str(float_time) + '\' [start]')
+    print(str(_currtime) + ', thread_test, thread_number is \'' + str(thread_number) + '\', time: \'' + str(float_time) + '\' [start]')
 
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-    print(str(_currtime) + ', ' + str(number) + '-th thread wait until lock is acquired')
+    print(str(_currtime) + ', ' + str(thread_number) + '-th thread wait until lock is acquired')
     while not thread_lock.locked():
         pass
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-    print(str(_currtime) + ', ' + str(number) + '-th thread detect lock is acquired')
+    print(str(_currtime) + ', ' + str(thread_number) + '-th thread detect lock is acquired')
 
     for _i in range(0, timeout_100ms):
         time.sleep(0.1)
 
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-    print(str(_currtime) + ', ' + str(number) + '-th thread lock is released')
+    print(str(_currtime) + ', ' + str(thread_number) + '-th thread lock is released')
     thread_lock.release()
 
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-    print(str(_currtime) + ', thread_test, number is \'' + str(number) + '\', time: \'' + str(float_time) + '\' [end]')
+    print(str(_currtime) + ', thread_test, thread_number is \'' + str(thread_number) + '\', time: \'' + str(float_time) + '\' [end]')
 
 def main():
     print('thread test program is started')
