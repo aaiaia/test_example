@@ -17,8 +17,8 @@ def thread_acc_test(thread_number, float_time, shared_var, integral_until:int, t
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
     print(str(_currtime) + ', ' + str(thread_number) + '-th thread detect lock is acquired')
 
-    for _i in range(0, timeout_100ms):
-        time.sleep(0.1)
+    #there is test codes, thread access
+    pass
 
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
     print(str(_currtime) + ', ' + str(thread_number) + '-th thread lock is released')
