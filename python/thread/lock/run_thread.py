@@ -9,6 +9,7 @@ def thread_acc_test(thread_number, float_time, shared_var, integral_until:int, t
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
     print(str(_currtime) + ', thread_acc_test, thread_number is \'' + str(thread_number) + '\', time: \'' + str(float_time) + '\' [start]')
 
+    for _i in range(0, integral_until):
         if thread_lock:
             thread_lock.acquire()
 
