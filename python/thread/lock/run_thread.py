@@ -5,9 +5,9 @@ import threading
 
 from pytz import timezone
 
-def thread_test(thread_number, float_time, thread_lock, timeout_100ms=1):
+def thread_acc_test(thread_number, float_time, integral_until:int, thread_lock=None, timeout_100ms=1):
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-    print(str(_currtime) + ', thread_test, thread_number is \'' + str(thread_number) + '\', time: \'' + str(float_time) + '\' [start]')
+    print(str(_currtime) + ', thread_add_test, thread_number is \'' + str(thread_number) + '\', time: \'' + str(float_time) + '\' [start]')
 
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
     print(str(_currtime) + ', ' + str(thread_number) + '-th thread wait until lock is acquired')
@@ -24,7 +24,7 @@ def thread_test(thread_number, float_time, thread_lock, timeout_100ms=1):
     thread_lock.release()
 
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-    print(str(_currtime) + ', thread_test, thread_number is \'' + str(thread_number) + '\', time: \'' + str(float_time) + '\' [end]')
+    print(str(_currtime) + ', thread_add_test, thread_number is \'' + str(thread_number) + '\', time: \'' + str(float_time) + '\' [end]')
 
 def main():
     print('thread test program is started')
@@ -40,8 +40,8 @@ def main():
 
         _thread_lock_list.append(_thread_lock)
 
-        _thread_test_var    = threading.Thread(target=thread_test, name="thread_test", args=(_i, _time, _thread_lock, 5,))
-        _thread_test_var.start()
+        _thread_add_test_var    = threading.Thread(target=thread_add_test, name="thread_add_test", args=(_i, _time, 0, _thread_lock, 5,))
+        _thread_add_test_var.start()
        
         time.sleep(0.100)
         _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
