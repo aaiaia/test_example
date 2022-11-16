@@ -47,15 +47,6 @@ def main():
         _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
         print(str(_currtime) + ', ' + __name__+ ', ' + str(_i) + '-th thread escape aquire()')
 
-        """
-        _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-        print(str(_currtime) + ', ' + __name__+ ', wait ' + str(_i) + '-th thread released')
-        while _thread_lock.locked():
-            pass
-        _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-        print(str(_currtime) + ', ' + __name__+ ', detect' + str(_i) + '-th thread released')
-        """
-
     while not _thread_is_done:
         _thread_lock_or_acc = False
         for _i, _thread_lock in enumerate(_thread_lock_list):
