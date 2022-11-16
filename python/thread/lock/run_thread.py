@@ -11,8 +11,9 @@ def thread_acc_test(thread_number, float_time, integral_until:int, thread_lock=N
 
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
     print(str(_currtime) + ', ' + str(thread_number) + '-th thread wait until lock is acquired')
-    while not thread_lock.locked():
-        pass
+    if thread_lock:
+        while not thread_lock.locked():
+            pass
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
     print(str(_currtime) + ', ' + str(thread_number) + '-th thread detect lock is acquired')
 
@@ -21,7 +22,8 @@ def thread_acc_test(thread_number, float_time, integral_until:int, thread_lock=N
 
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
     print(str(_currtime) + ', ' + str(thread_number) + '-th thread lock is released')
-    thread_lock.release()
+    if thread_lock:
+        thread_lock.release()
 
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
     print(str(_currtime) + ', thread_add_test, thread_number is \'' + str(thread_number) + '\', time: \'' + str(float_time) + '\' [end]')
