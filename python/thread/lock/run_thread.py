@@ -9,19 +9,12 @@ def thread_acc_test(thread_number, float_time, shared_var, integral_until:int, t
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
     print(str(_currtime) + ', thread_acc_test, thread_number is \'' + str(thread_number) + '\', time: \'' + str(float_time) + '\' [start]')
 
-    _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-    print(str(_currtime) + ', ' + str(thread_number) + '-th thread wait until lock is acquired')
     if thread_lock:
         thread_lock.acquire()
-
-    _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-    print(str(_currtime) + ', ' + str(thread_number) + '-th thread detect lock is acquired')
 
     #there is test codes, thread access
     pass
 
-    _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-    print(str(_currtime) + ', ' + str(thread_number) + '-th thread lock is released')
     if thread_lock:
         thread_lock.release()
 
