@@ -9,14 +9,14 @@ def thread_acc_test(thread_number, float_time, shared_var, integral_until:int, t
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
     print(str(_currtime) + ', thread_acc_test, thread_number is \'' + str(thread_number) + '\', time: \'' + str(float_time) + '\' [start]')
 
-    if thread_lock:
-        thread_lock.acquire()
+        if thread_lock:
+            thread_lock.acquire()
 
-    #there is test codes, thread access
-    pass
+        #there is test codes, thread access
+        pass
 
-    if thread_lock:
-        thread_lock.release()
+        if thread_lock:
+            thread_lock.release()
 
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
     print(str(_currtime) + ', thread_acc_test, thread_number is \'' + str(thread_number) + '\', time: \'' + str(float_time) + '\' [end]')
