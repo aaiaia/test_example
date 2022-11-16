@@ -31,6 +31,9 @@ def main():
     _thread_lock_list   = []
     _thread_is_done     = False
 
+    __shared_var_non_block = 0
+    __shared_var_block = 0
+
     for _i in range(0,10):
         _thread_lock        = threading.Lock()
         _time               = time.time()
