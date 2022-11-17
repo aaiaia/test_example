@@ -5,62 +5,45 @@ import threading
 
 from pytz import timezone
 
-def thread_test(thread_number, float_time, thread_lock, timeout_100ms=1):
-    _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-    print(str(_currtime) + ', thread_test, thread_number is \'' + str(thread_number) + '\', time: \'' + str(float_time) + '\' [start]')
+__shared_var_non_block = 0
+__shared_var_block = 0
 
+def thread_acc_test(thread_number, acc_count:int, thread_lock=None):
+    global __shared_var_non_block, __shared_var_block
+    _time = time.time()
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-    print(str(_currtime) + ', ' + str(thread_number) + '-th thread wait until lock is acquired')
-    while not thread_lock.locked():
-        pass
-    _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-    print(str(_currtime) + ', ' + str(thread_number) + '-th thread detect lock is acquired')
+    print(str(_currtime) + ', thread_acc_test, thread_number is \'' + str(thread_number) + '\', time: \'' + str(_time) + '\' [start]')
 
-    for _i in range(0, timeout_100ms):
-        time.sleep(0.1)
+    if thread_lock:
+        for _i in range(0, acc_count):
+            thread_lock.acquire()
 
-    _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-    print(str(_currtime) + ', ' + str(thread_number) + '-th thread lock is released')
-    thread_lock.release()
+            #there is test codes, thread access
+            __shared_var_block += 1
 
+            thread_lock.release()
+    else:
+        for _i in range(0, acc_count):
+            #there is test codes, thread access
+            __shared_var_non_block += 1
+
+    print('[INFO]__shared_var_non_block= ' + str(__shared_var_non_block) + ', __shared_var_block= ' + str(__shared_var_block))
+
+    _time = time.time()
     _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-    print(str(_currtime) + ', thread_test, thread_number is \'' + str(thread_number) + '\', time: \'' + str(float_time) + '\' [end]')
+    print(str(_currtime) + ', thread_acc_test, thread_number is \'' + str(thread_number) + '\', time: \'' + str(_time) + '\' [end]')
 
 def main():
     print('thread test program is started')
-    _thread_lock_list   = []
-    _thread_is_done     = False
+    _thread_lock        = threading.Lock()
 
     for _i in range(0,10):
-        _thread_lock        = threading.Lock()
-        _time               = time.time()
+        _thread_acc_test_var    = threading.Thread(target=thread_acc_test, name="thread_acc_test_non_blocking", args=(_i, 100000, None,))
+        _thread_acc_test_var.start()
 
-        _thread_lock_list.append(_thread_lock)
-
-        _thread_test_var    = threading.Thread(target=thread_test, name="thread_test", args=(_i, _time, _thread_lock, 5,))
-        _thread_test_var.start()
-       
-        time.sleep(0.100)
-        _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-        print(str(_currtime) + ', ' + __name__+ ', ' + str(_i) + '-th thread is aquired')
-        _thread_lock.acquire(True)
-        _currtime = datetime.datetime.now(timezone('Asia/Seoul'))
-        print(str(_currtime) + ', ' + __name__+ ', ' + str(_i) + '-th thread escape aquire()')
-
-    while not _thread_is_done:
-        _thread_lock_or_acc = False
-        for _i, _thread_lock in enumerate(_thread_lock_list):
-            _fr = _thread_lock.locked()
-            _thread_lock_or_acc |= _fr
-            print(__name__ + ', ' + str(_i) + '-th thread is locked?: ' + str(_fr))
-
-        if not _thread_lock_or_acc:
-            _thread_is_done = True
-        else:
-            time.sleep(0.05)
-
-    for _i, _thread_lock in enumerate(_thread_lock_list):
-        print(str(_currtime) + ', ' + __name__+ ', check ' + str(_i) + '-th thread lock: ' + str(_thread_lock.locked()))
+    for _i in range(10,20):
+        _thread_acc_test_var    = threading.Thread(target=thread_acc_test, name="thread_acc_test_blocking", args=(_i, 100000, _thread_lock,))
+        _thread_acc_test_var.start()
 
     print('thread test program will be closed')
 
