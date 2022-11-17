@@ -34,14 +34,12 @@ def thread_acc_test(thread_number, float_time, acc_count:int, thread_lock=None, 
 
 def main():
     print('thread test program is started')
-    _thread_is_done     = False
-
     _thread_lock        = threading.Lock()
 
     for _i in range(0,10):
         _time               = time.time()
 
-        _thread_acc_test_var    = threading.Thread(target=thread_acc_test, name="thread_acc_test_non_blocking", args=(_i, _time, 10000000, None, 5,))
+        _thread_acc_test_var    = threading.Thread(target=thread_acc_test, name="thread_acc_test_non_blocking", args=(_i, _time, 100000, None, 5,))
         _thread_acc_test_var.start()
 
     for _i in range(10,20):
@@ -49,9 +47,6 @@ def main():
 
         _thread_acc_test_var    = threading.Thread(target=thread_acc_test, name="thread_acc_test_blocking", args=(_i, _time, 100000, _thread_lock, 5,))
         _thread_acc_test_var.start()
-
-    while not _thread_is_done:
-        time.sleep(0.1)
 
     print('thread test program will be closed')
 
