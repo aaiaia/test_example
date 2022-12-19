@@ -1,3 +1,4 @@
+
 # for system
 import sys
 import time
@@ -18,22 +19,37 @@ class testClass:
         if self.queue_obj != None:
             while True:
                 queueVal = self.queue_obj.get()
-                yield queueVal
+                if queueVal != None:
+                    yield queueVal
+                else:
+                    break
         else:
             raise Exception('class testClass needs queue.Queue Object!')
+        return queueVal
 
     def putQueue(self, data:str=None):
         self.queue_obj.put(data)
 
 def printYieldsUsingFor(textTypeYields):
+    __info = sys._getframe(0)
+    print(__info.f_code.co_name + ', line# ' + str(__info.f_lineno) + ' start')
+
     for textTypeYield in textTypeYields:
+        print(__info.f_code.co_name + ', line# ' + str(__info.f_lineno) + ' \'for\' statement, start')
+
         print('textTypeYield in \'for\' statements: ' + str(textTypeYield))
         if textTypeYield == 'exit':
             print('exit \'for\' statements')
             break
         else:
             pass
-        time.sleep(0.05)  # protect cpu usage
+        time.sleep(0.05)  # protect cpu usagea
+
+        print(__info.f_code.co_name + ', line# ' + str(__info.f_lineno) + ' \'for\' statement, end')
+
+    print(textTypeYields)
+
+    print(__info.f_code.co_name + ', line# ' + str(__info.f_lineno) + ' end')
 
 def main():
     testObj = testClass(queue.Queue())
@@ -48,12 +64,14 @@ def main():
         time.sleep(0.05)  # delaying print time
         print('keyin: ', end = '')
         keyin = sys.stdin.readline().rstrip("\r\n")
-        testObj.putQueue(keyin)
         if keyin == 'exit':
+            testObj.putQueue(None)
             print('quit keyin')
             break
+        elif keyin == '':
+            continue
         else:
-            pass
+            testObj.putQueue(keyin)
 
 if __name__ == '__main__':
     main()
