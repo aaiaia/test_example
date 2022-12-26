@@ -14,12 +14,11 @@ def parseIpAddr(cmd_msg:str) -> (dict):
         print(__cmd)
         __charLoc = __cmd.find(':')
         __eth = __cmd[:__charLoc]
-        print('name:' + __eth)
 
         __charLoc = __cmd.find('inet ') + 5
         __ip = __cmd[__charLoc:]
         __ip = __ip[:__ip.find(' ')]
-        print('ip:' + __ip)
+        print('name:' + __eth + ', ' + 'ip:' + __ip)
 
         __ipAddr[__eth] = __ip
 
@@ -28,7 +27,16 @@ def parseIpAddr(cmd_msg:str) -> (dict):
 
     return __ipAddr
 
-def getIpAddr() -> (dict, str):
+def dropIp(ipInfo:dict, keys:list = []) -> (dict):
+    if keys != []:
+        for __key, __value in ipInfo:
+            print('key:' + __key)
+            print('value:' + __value)
+    else:
+        pass
+    return ipInfo
+
+def getIpAddr(dropEth:list] = []) -> (dict, str):
     __ipInfo = {}
     __cmd_sts = 0
     __cmd_msg = ''
@@ -36,6 +44,7 @@ def getIpAddr() -> (dict, str):
     __cmd_sts, __cmd_msg = subprocess.getstatusoutput('ifconfig | grep -w inet -B 1')
     if __cmd_sts == 0:  # command has no error
         __ipInfo = parseIpAddr(__cmd_msg)
+        __ipInfo = dropIp(__ipinfo, ['dummy'])
     else:  # command has error
         __cmd_msg.replace('\n', '; ')
     return __ipInfo, __cmd_msg
