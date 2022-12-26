@@ -64,7 +64,7 @@ def main(argv):
 
     # Define hidden variables
     __soxInfo = None
-    __cmdMSg = ''
+    __cmdMsg = ''
 
     try:
         # opts: getopt 옵션에 따라 파싱 ex) [('-i', 'myinstancce1')]
@@ -93,14 +93,14 @@ def main(argv):
     else:
         print('__file is blank!')
 
-    __soxInfo, __cmdMSg = getSoX_info(__file)
+    __soxInfo, __cmdMsg = getSoX_info(__file)
 
     print('>> about soxInfo', end=':')
     print(type(__soxInfo), end=':')
     print(__soxInfo)
 
     print('>> debug message')
-    print(__cmdMSg)
+    print(__cmdMsg)
 
     print(_funcName + ' in ' + __name__ + ' is end')
 
