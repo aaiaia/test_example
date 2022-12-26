@@ -10,7 +10,7 @@ def parseIpAddr(cmd_msg:str) -> (dict):
     __cmd_list = cmd_msg.split('\n--\n')
     __ipAddr = {}
 
-    print('parsing process >>')
+    print('>> parsing process')
     for __cmd in __cmd_list:
         __charLoc = __cmd.find(':')
         __eth = __cmd[:__charLoc]
@@ -21,9 +21,6 @@ def parseIpAddr(cmd_msg:str) -> (dict):
         print('eth:' + __eth + ', ' + 'ip:' + __ip)
 
         __ipAddr[__eth] = __ip
-
-    print('command list >>')
-    print(__cmd_list)
 
     return __ipAddr
 
@@ -51,14 +48,14 @@ def getIpAddr(dropEthKeyList:list = []) -> (dict, str):
     __cmd_msg = ''
 
     __cmd_sts, __cmd_msg = subprocess.getstatusoutput(__cmd_run)
-    print('run command >> ' + __cmd_run)
+    print('>> run command: \'' + __cmd_run + '\'')
     print(__cmd_msg)
     if __cmd_sts == 0:  # command has no error
         __ipInfo = parseIpAddr(__cmd_msg)
-        print('parsed command message >> ')
+        print('>> parsed command message')
         print(__ipInfo)
         __ipInfo = dropIpUsingSimilarKeys(__ipInfo, dropEthKeyList)
-        print('dropped ips >> ')
+        print('>> dropped ips')
         print(__ipInfo)
     else:  # command has error
         __cmd_msg.replace('\n', '; ')
@@ -109,9 +106,9 @@ def main(argv):
 
     print('>> about ipInfo', end=':')
     print(type(__ipInfo), end=':')
-    print(__ipInfo,)
+    print(__ipInfo)
 
-    print('>> debug message')
+    print('>> command message')
     print(__cmdMsg)
 
     print(_funcName + ' in ' + __name__ + ' is end')
