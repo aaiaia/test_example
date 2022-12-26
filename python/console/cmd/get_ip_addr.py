@@ -45,6 +45,7 @@ def dropIpUsingSimilarKeys(ipInfo:dict, targetKeys:list = []) -> (dict):
 
 def getIpAddr(dropEthKeyList:list = []) -> (dict, str):
     __cmd_run = 'ifconfig | grep -w inet -B 1'
+
     __ipInfo = {}
     __cmd_sts = 0
     __cmd_msg = ''
