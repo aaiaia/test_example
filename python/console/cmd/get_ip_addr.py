@@ -27,7 +27,7 @@ def parseIpAddr(cmd_msg:str) -> (dict):
 
     return __ipAddr
 
-def dropIp(ipInfo:dict, targetKeys:list = []) -> (dict):
+def dropIpUsingSimilarKeys(ipInfo:dict, targetKeys:list = []) -> (dict):
     __foundKeys = []
     if targetKeys != []:
         for __targetKey in targetKeys:
@@ -56,7 +56,7 @@ def getIpAddr(dropEthKeyList:list = []) -> (dict, str):
         __ipInfo = parseIpAddr(__cmd_msg)
         print('parsed command message >> ')
         print(__ipInfo)
-        __ipInfo = dropIp(__ipInfo, dropEthKeyList)
+        __ipInfo = dropIpUsingSimilarKeys(__ipInfo, dropEthKeyList)
         print('dropped ips >> ')
         print(__ipInfo)
     else:  # command has error
