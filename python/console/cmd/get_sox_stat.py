@@ -10,7 +10,7 @@ def parseSoX_stat(cmd_msg:str) -> (dict):
     _cmd_list = cmd_msg.split('\n')
     _soxInfo = {}
 
-    __s_time = time.time()
+    print('>> parsing process')
     for __cmd in _cmd_list:
         __charLoc = __cmd.rfind(' ') + 1
         if('RMS' in __cmd and 'amplitude' in __cmd):
@@ -21,8 +21,6 @@ def parseSoX_stat(cmd_msg:str) -> (dict):
             _soxInfo['Rough frequency'] = int(__cmd[__charLoc:])
             print(__cmd + ' => ' + __cmd[__charLoc:])
             continue
-    __e_time = time.time()
-    print('time: ' + str((__e_time - __s_time) * 1000) + 'ms')
 
     return _soxInfo
 
@@ -33,12 +31,12 @@ def getSoX_info(wavFile:str) -> (dict, str):
     __cmd_sts = 0
     __cmd_msg = ''
 
-    print('run command >> ' + __cmd_run)
+    print('>> run command: \'' + __cmd_run + '\'')
     print(__cmd_msg)
     __cmd_sts, __cmd_msg = subprocess.getstatusoutput(__cmd_run )
     if __cmd_sts == 0:  # command has no error
         __soxInfo = parseSoX_stat(__cmd_msg)
-        print('parsed command message >> ')
+        print('>> parsed command message')
         print(__soxInfo)
     else:  # command has error
         __cmd_msg.replace('\n', '; ')
@@ -91,7 +89,7 @@ def main(argv):
     print(type(__soxInfo), end=':')
     print(__soxInfo)
 
-    print('>> debug message')
+    print('>> command message')
     print(__cmdMsg)
 
     print(_funcName + ' in ' + __name__ + ' is end')
