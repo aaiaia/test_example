@@ -29,7 +29,7 @@ def parseIpAddr(cmd_msg:str) -> (dict):
 
 def dropIp(ipInfo:dict, keys:list = []) -> (dict):
     if keys != []:
-        for __key, __value in ipInfo:
+        for __key, __value in ipInfo.items():
             print('key:' + __key)
             print('value:' + __value)
     else:
@@ -44,7 +44,7 @@ def getIpAddr(dropEth:list = []) -> (dict, str):
     __cmd_sts, __cmd_msg = subprocess.getstatusoutput('ifconfig | grep -w inet -B 1')
     if __cmd_sts == 0:  # command has no error
         __ipInfo = parseIpAddr(__cmd_msg)
-        __ipInfo = dropIp(__ipinfo, ['dummy'])
+        __ipInfo = dropIp(__ipInfo, ['dummy'])
     else:  # command has error
         __cmd_msg.replace('\n', '; ')
     return __ipInfo, __cmd_msg
