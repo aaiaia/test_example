@@ -10,19 +10,19 @@ def parseIpAddr(cmd_msg:str) -> (dict):
     __cmd_list = cmd_msg.split('\n--\n')
     __ipAddr = {}
 
+    print('parsing process >>')
     for __cmd in __cmd_list:
-        print(__cmd)
         __charLoc = __cmd.find(':')
         __eth = __cmd[:__charLoc]
 
         __charLoc = __cmd.find('inet ') + 5
         __ip = __cmd[__charLoc:]
         __ip = __ip[:__ip.find(' ')]
-        print('name:' + __eth + ', ' + 'ip:' + __ip)
+        print('eth:' + __eth + ', ' + 'ip:' + __ip)
 
         __ipAddr[__eth] = __ip
 
-    print('>> __cmd_list')
+    print('command list >>')
     print(__cmd_list)
 
     return __ipAddr
@@ -54,10 +54,10 @@ def getIpAddr(dropEthKeyList:list = []) -> (dict, str):
     print(__cmd_msg)
     if __cmd_sts == 0:  # command has no error
         __ipInfo = parseIpAddr(__cmd_msg)
-        print('parsing command message >> ')
+        print('parsed command message >> ')
         print(__ipInfo)
         __ipInfo = dropIp(__ipInfo, dropEthKeyList)
-        print('drop ip >> ')
+        print('dropped ips >> ')
         print(__ipInfo)
     else:  # command has error
         __cmd_msg.replace('\n', '; ')
@@ -65,23 +65,24 @@ def getIpAddr(dropEthKeyList:list = []) -> (dict, str):
 
 def main(argv):
     print(argv)
-    HELP_MSG = '--help, --example=[STRING], --test'
+    HELP_MSG = '--help, --eliminates=[STRING,STRING,...STRING], --test'
 
     _funcName = sys._getframe(0).f_code.co_name
     print(_funcName + ' in ' + __name__ + ' is start')
 
     # Define local variables
-    __example = ''
+    __elimenates = ''
 
     __ipInfo = {}
     __cmdMsg = ''
+    __dropEthKeyList = ['lo', 'docker', 'vpn']
 
     try:
         # opts: getopt 옵션에 따라 파싱 ex) [('-i', 'myinstancce1')]
         # etc_args: getopt 옵션 이외에 입력된 일반 Argument
         # argv 첫번째(index:0)는 파일명, 두번째(index:1)부터 Arguments
         opts, etc_args = getopt.getopt(argv[1:], \
-            "he:l:", ["help", "example=", "test"])
+            "he:l:", ["help", "eliminates=", "test"])
     except getopt.GetoptError as e: # 옵션지정이 올바르지 않은 경우
         print(e)
         print(HELP_MSG)
@@ -91,14 +92,19 @@ def main(argv):
         if opt in ("-h", "--help"): # HELP 요청인 경우 사용법 출력
             print(HELP_MSG)
             sys.exit(2)
-        elif opt in ("-e", "--example"):
-            __example = arg
-            print('set __example: ' + __example)
+        elif opt in ("-e", "--eliminates"):
+            __elimenates = arg
+            print('set __elimenates: ' + __elimenates)
         elif opt in ("-l", "--test"):
             print('--test option is detected!')
 
+    # option settings
+    if __elimenates != '':
+        __dropEthKeyList = __elimenates.split(',')
+        print('set __dropEthKeyList:' + str(__dropEthKeyList))
+
     # Implements
-    __ipInfo, __cmdMsg = getIpAddr(['lo', 'docker', 'vpn'])
+    __ipInfo, __cmdMsg = getIpAddr(__dropEthKeyList)
 
     print('>> about ipInfo', end=':')
     print(type(__ipInfo), end=':')
