@@ -35,6 +35,9 @@ def main(argv):
         elif opt in ("-l", "--test"):
             print('--test option is detected!')
 
+    # option settings
+    pass
+
     # Implements
     if __example != '':
         print('__example: ' + __example)
