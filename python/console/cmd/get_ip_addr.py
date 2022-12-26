@@ -43,16 +43,21 @@ def dropIp(ipInfo:dict, targetKeys:list = []) -> (dict):
         del ipInfo[__foundKey]
     return ipInfo
 
-def getIpAddr(dropEth:list = []) -> (dict, str):
+def getIpAddr(dropEthKeyList:list = []) -> (dict, str):
+    __cmd_run = 'ifconfig | grep -w inet -B 1'
     __ipInfo = {}
     __cmd_sts = 0
     __cmd_msg = ''
 
-    __cmd_sts, __cmd_msg = subprocess.getstatusoutput('ifconfig | grep -w inet -B 1')
+    __cmd_sts, __cmd_msg = subprocess.getstatusoutput(__cmd_run)
+    print('run command >> ' + __cmd_run)
+    print(__cmd_msg)
     if __cmd_sts == 0:  # command has no error
         __ipInfo = parseIpAddr(__cmd_msg)
+        print('parsing command message >> ')
         print(__ipInfo)
-        __ipInfo = dropIp(__ipInfo, ['lo', 'vp'])
+        __ipInfo = dropIp(__ipInfo, dropEthKeyList)
+        print('drop ip >> ')
         print(__ipInfo)
     else:  # command has error
         __cmd_msg.replace('\n', '; ')
@@ -93,7 +98,7 @@ def main(argv):
             print('--test option is detected!')
 
     # Implements
-    __ipInfo, __cmdMsg = getIpAddr()
+    __ipInfo, __cmdMsg = getIpAddr(['lo', 'docker', 'vpn'])
 
     print('>> about ipInfo', end=':')
     print(type(__ipInfo), end=':')
