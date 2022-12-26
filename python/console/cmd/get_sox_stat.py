@@ -9,21 +9,7 @@ import getopt
 def parseSoX_stat(cmd_msg:str) -> (dict):
     _cmd_list = cmd_msg.split('\n')
     _soxInfo = {}
-    """ just test codes start """
-    """
-    for __i, __cmd in enumerate(_cmd_list):
-        __charLoc = -1
-        print('line#' + str(__i) + ':' + __cmd, end='->')
-        if('\r' in __cmd):
-            print('it has return char!!!')
-        elif('\n' in __cmd):
-            print('it has line feed char!!!')
-        elif('\t' in __cmd):
-            print('it has tab sapce char!!!')
-        else:
-            print('it not has any special char!!!')
-    """
-    """ just test codes end """
+
     __s_time = time.time()
     for __cmd in _cmd_list:
         __charLoc = __cmd.rfind(' ') + 1
@@ -41,13 +27,19 @@ def parseSoX_stat(cmd_msg:str) -> (dict):
     return _soxInfo
 
 def getSoX_info(wavFile:str) -> (dict, str):
+    __cmd_run = 'sox ' + wavFile + ' -n stat'
+
     __soxInfo = {}
     __cmd_sts = 0
     __cmd_msg = ''
 
-    __cmd_sts, __cmd_msg = subprocess.getstatusoutput('sox ' + wavFile + ' -n stat')
+    print('run command >> ' + __cmd_run)
+    print(__cmd_msg)
+    __cmd_sts, __cmd_msg = subprocess.getstatusoutput(__cmd_run )
     if __cmd_sts == 0:  # command has no error
         __soxInfo = parseSoX_stat(__cmd_msg)
+        print('parsed command message >> ')
+        print(__soxInfo)
     else:  # command has error
         __cmd_msg.replace('\n', '; ')
     return __soxInfo, __cmd_msg
