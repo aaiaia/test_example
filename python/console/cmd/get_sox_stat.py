@@ -6,10 +6,9 @@ import subprocess
 # for Debugging
 import getopt
 
-def parseSoX_stat(cmd_msg:str) -> (float, int):
+def parseSoX_stat(cmd_msg:str) -> (dict):
     _cmd_list = cmd_msg.split('\n')
-    _rms_amplitude = 0.0
-    _rough_frequency = 0
+    _soxInfo = {}
     """ just test codes start """
     """
     for __i, __cmd in enumerate(_cmd_list):
@@ -29,21 +28,17 @@ def parseSoX_stat(cmd_msg:str) -> (float, int):
     for __cmd in _cmd_list:
         __charLoc = __cmd.rfind(' ') + 1
         if('RMS' in __cmd and 'amplitude' in __cmd):
+            _soxInfo['RMS amplitude'] = float(__cmd[__charLoc:])
             print(__cmd + ' => ' + __cmd[__charLoc:])
-            _rms_amplitude = float(__cmd[__charLoc:])
             continue
         elif('Rough' in __cmd and 'frequency' in __cmd):
-            _rough_frequency = int(__cmd[__charLoc:])
+            _soxInfo['Rough frequency'] = int(__cmd[__charLoc:])
             print(__cmd + ' => ' + __cmd[__charLoc:])
             continue
     __e_time = time.time()
     print('time: ' + str((__e_time - __s_time) * 1000) + 'ms')
-    """
-    print(_rms_amplitude)
-    print(_rough_frequency)
-    """
 
-    return _rms_amplitude, _rough_frequency
+    return _soxInfo
 
 def main(argv):
     print(argv)
@@ -56,8 +51,7 @@ def main(argv):
     __file = ''
 
     # Define hidden variables
-    __rms_amplitude = 0.0
-    __rough_frequency = 0
+    __soxInfo = None
 
     try:
         # opts: getopt 옵션에 따라 파싱 ex) [('-i', 'myinstancce1')]
@@ -89,18 +83,14 @@ def main(argv):
     _cmd_sts, _cmd_msg = subprocess.getstatusoutput('sox ' + __file + ' -n stat')
     if _cmd_sts == 0:  # command has no error
         print(_cmd_msg)
-        __rms_amplitude, __rough_frequency = parseSoX_stat(_cmd_msg)
+        __soxInfo = parseSoX_stat(_cmd_msg)
     else:  # command has error
         print('command return: ' + str(_cmd_sts))
         print(_cmd_msg.replace('\n', '; '))
 
-    print('aboud rms_amplitude', end=':')
-    print(type(__rms_amplitude), end=':')
-    print(__rms_amplitude)
-
-    print('aboud rough_frequency: ', end=':')
-    print(type(__rough_frequency), end=':')
-    print(__rough_frequency)
+    print('aboud soxInfo', end=':')
+    print(type(__soxInfo), end=':')
+    print(__soxInfo)
 
     print(_funcName + ' in ' + __name__ + ' is end')
 
