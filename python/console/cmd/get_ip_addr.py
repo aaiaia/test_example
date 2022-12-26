@@ -36,7 +36,7 @@ def dropIp(ipInfo:dict, keys:list = []) -> (dict):
         pass
     return ipInfo
 
-def getIpAddr(dropEth:list] = []) -> (dict, str):
+def getIpAddr(dropEth:list = []) -> (dict, str):
     __ipInfo = {}
     __cmd_sts = 0
     __cmd_msg = ''
