@@ -6,44 +6,41 @@ import subprocess
 # for Debugging
 import getopt
 
-def parseSoX_stat(cmd_msg:str) -> (float, int):
+def parseSoX_stat(cmd_msg:str) -> (dict):
     _cmd_list = cmd_msg.split('\n')
-    _rms_amplitude = 0.0
-    _rough_frequency = 0
-    """ just test codes start """
-    """
-    for __i, __cmd in enumerate(_cmd_list):
-        __charLoc = -1
-        print('line#' + str(__i) + ':' + __cmd, end='->')
-        if('\r' in __cmd):
-            print('it has return char!!!')
-        elif('\n' in __cmd):
-            print('it has line feed char!!!')
-        elif('\t' in __cmd):
-            print('it has tab sapce char!!!')
-        else:
-            print('it not has any special char!!!')
-    """
-    """ just test codes end """
-    __s_time = time.time()
+    _soxInfo = {}
+
+    print('>> parsing process')
     for __cmd in _cmd_list:
         __charLoc = __cmd.rfind(' ') + 1
         if('RMS' in __cmd and 'amplitude' in __cmd):
+            _soxInfo['RMS amplitude'] = float(__cmd[__charLoc:])
             print(__cmd + ' => ' + __cmd[__charLoc:])
-            _rms_amplitude = float(__cmd[__charLoc:])
             continue
         elif('Rough' in __cmd and 'frequency' in __cmd):
-            _rough_frequency = int(__cmd[__charLoc:])
+            _soxInfo['Rough frequency'] = int(__cmd[__charLoc:])
             print(__cmd + ' => ' + __cmd[__charLoc:])
             continue
-    __e_time = time.time()
-    print('time: ' + str((__e_time - __s_time) * 1000) + 'ms')
-    """
-    print(_rms_amplitude)
-    print(_rough_frequency)
-    """
 
-    return _rms_amplitude, _rough_frequency
+    return _soxInfo
+
+def getSoX_info(wavFile:str) -> (dict, str):
+    __cmd_run = 'sox ' + wavFile + ' -n stat'
+
+    __soxInfo = {}
+    __cmd_sts = 0
+    __cmd_msg = ''
+
+    print('>> run command: \'' + __cmd_run + '\'')
+    print(__cmd_msg)
+    __cmd_sts, __cmd_msg = subprocess.getstatusoutput(__cmd_run )
+    if __cmd_sts == 0:  # command has no error
+        __soxInfo = parseSoX_stat(__cmd_msg)
+        print('>> parsed command message')
+        print(__soxInfo)
+    else:  # command has error
+        __cmd_msg.replace('\n', '; ')
+    return __soxInfo, __cmd_msg
 
 def main(argv):
     print(argv)
@@ -56,8 +53,8 @@ def main(argv):
     __file = ''
 
     # Define hidden variables
-    __rms_amplitude = 0.0
-    __rough_frequency = 0
+    __soxInfo = None
+    __cmdMsg = ''
 
     try:
         # opts: getopt 옵션에 따라 파싱 ex) [('-i', 'myinstancce1')]
@@ -80,27 +77,21 @@ def main(argv):
         elif opt in ("-l", "--test"):
             print('--test option is detected!')
 
-    # Implements
+    # option settings
     if __file != '':
         print('__file: ' + __file)
     else:
         print('__file is blank!')
 
-    _cmd_sts, _cmd_msg = subprocess.getstatusoutput('sox ' + __file + ' -n stat')
-    if _cmd_sts == 0:  # command has no error
-        print(_cmd_msg)
-        __rms_amplitude, __rough_frequency = parseSoX_stat(_cmd_msg)
-    else:  # command has error
-        print('command return: ' + str(_cmd_sts))
-        print(_cmd_msg.replace('\n', '; '))
+    # Implements
+    __soxInfo, __cmdMsg = getSoX_info(__file)
 
-    print('aboud rms_amplitude', end=':')
-    print(type(__rms_amplitude), end=':')
-    print(__rms_amplitude)
+    print('>> about soxInfo', end=':')
+    print(type(__soxInfo), end=':')
+    print(__soxInfo)
 
-    print('aboud rough_frequency: ', end=':')
-    print(type(__rough_frequency), end=':')
-    print(__rough_frequency)
+    print('>> command message')
+    print(__cmdMsg)
 
     print(_funcName + ' in ' + __name__ + ' is end')
 
