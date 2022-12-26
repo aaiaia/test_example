@@ -40,6 +40,18 @@ def parseSoX_stat(cmd_msg:str) -> (dict):
 
     return _soxInfo
 
+def getSoX_info(wavFile:str) -> (dict, str):
+    __soxInfo = {}
+    __cmd_sts = 0
+    __cmd_msg = ''
+
+    __cmd_sts, __cmd_msg = subprocess.getstatusoutput('sox ' + wavFile + ' -n stat')
+    if __cmd_sts == 0:  # command has no error
+        __soxInfo = parseSoX_stat(__cmd_msg)
+    else:  # command has error
+        __cmd_msg.replace('\n', '; ')
+    return __soxInfo, __cmd_msg
+
 def main(argv):
     print(argv)
     HELP_MSG = '--help, --file=[STRING], --test'
@@ -52,6 +64,7 @@ def main(argv):
 
     # Define hidden variables
     __soxInfo = None
+    __cmdMSg = ''
 
     try:
         # opts: getopt 옵션에 따라 파싱 ex) [('-i', 'myinstancce1')]
@@ -80,17 +93,14 @@ def main(argv):
     else:
         print('__file is blank!')
 
-    _cmd_sts, _cmd_msg = subprocess.getstatusoutput('sox ' + __file + ' -n stat')
-    if _cmd_sts == 0:  # command has no error
-        print(_cmd_msg)
-        __soxInfo = parseSoX_stat(_cmd_msg)
-    else:  # command has error
-        print('command return: ' + str(_cmd_sts))
-        print(_cmd_msg.replace('\n', '; '))
+    __soxInfo, __cmdMSg = getSoX_info(__file)
 
-    print('aboud soxInfo', end=':')
+    print('>> about soxInfo', end=':')
     print(type(__soxInfo), end=':')
     print(__soxInfo)
+
+    print('>> debug message')
+    print(__cmdMSg)
 
     print(_funcName + ' in ' + __name__ + ' is end')
 
