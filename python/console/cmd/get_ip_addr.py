@@ -27,13 +27,20 @@ def parseIpAddr(cmd_msg:str) -> (dict):
 
     return __ipAddr
 
-def dropIp(ipInfo:dict, keys:list = []) -> (dict):
-    if keys != []:
-        for __key, __value in ipInfo.items():
-            print('key:' + __key)
-            print('value:' + __value)
+def dropIp(ipInfo:dict, targetKeys:list = []) -> (dict):
+    __foundKeys = []
+    if targetKeys != []:
+        for __targetKey in targetKeys:
+            for __ipInfoKey in ipInfo.keys():
+                if __targetKey in __ipInfoKey:
+                    print('\'' + __ipInfoKey + '\' is similar with \'' + __targetKey + '\'')
+                    __foundKeys.append(__ipInfoKey)
     else:
-        pass
+        print('keys is blank list!!!')
+
+    for __foundKey in __foundKeys:
+        print('removed key:' + __foundKey + ' and value:' + ipInfo[__foundKey])
+        del ipInfo[__foundKey]
     return ipInfo
 
 def getIpAddr(dropEth:list = []) -> (dict, str):
@@ -44,7 +51,9 @@ def getIpAddr(dropEth:list = []) -> (dict, str):
     __cmd_sts, __cmd_msg = subprocess.getstatusoutput('ifconfig | grep -w inet -B 1')
     if __cmd_sts == 0:  # command has no error
         __ipInfo = parseIpAddr(__cmd_msg)
-        __ipInfo = dropIp(__ipInfo, ['dummy'])
+        print(__ipInfo)
+        __ipInfo = dropIp(__ipInfo, ['lo', 'vp'])
+        print(__ipInfo)
     else:  # command has error
         __cmd_msg.replace('\n', '; ')
     return __ipInfo, __cmd_msg
