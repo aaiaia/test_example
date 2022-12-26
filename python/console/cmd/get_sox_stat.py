@@ -77,12 +77,13 @@ def main(argv):
         elif opt in ("-l", "--test"):
             print('--test option is detected!')
 
-    # Implements
+    # option settings
     if __file != '':
         print('__file: ' + __file)
     else:
         print('__file is blank!')
 
+    # Implements
     __soxInfo, __cmdMsg = getSoX_info(__file)
 
     print('>> about soxInfo', end=':')
