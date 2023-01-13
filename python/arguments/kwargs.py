@@ -33,14 +33,15 @@ def target_func(
     print('arg_f: ' + str(arg_f))
     print('arg_g: ' + str(arg_g))
 
-def wraper_func(arg_a, **kwargs):
+def wrapper_func(arg_a, **kwargs):
+    print('<<< in wrapper_func() >>>')
     for keyword in kwargs:
         print('keyword: \'' + str(keyword) + '\', value: \'' + str(kwargs[keyword]) + '\'')
 
     target_func(arg_a, **kwargs)
 
 def main():
-    wraper_func(
+    wrapper_func(
         arg_a='123',
         arg_b=None,
         arg_c='456',
