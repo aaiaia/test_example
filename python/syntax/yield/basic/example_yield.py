@@ -12,6 +12,7 @@ def main():
     print(yield_func())
 
     print('==============================')
+    print('<<< call yield_func() in for loops, until yield is end in the function >>>')
     for _yield in yield_func():
         print(_yield)
 
