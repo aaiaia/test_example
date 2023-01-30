@@ -17,6 +17,7 @@ def main():
         print(_yield)
 
     print('==============================')
+    print('<<< call yield_func() manually to overflowing yield >>>')
     _yield_func0 = yield_func()
     _yield_func1 = yield_func()
 
