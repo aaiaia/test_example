@@ -11,9 +11,9 @@ typedef struct {
 } test_struct_0_s;
 
 typedef struct {
-    uint32_t :4;            //[3]
+    uint32_t :4;                //[3:0]
     uint32_t b4_exclusive:4;    //[7:4]
-    uint32_t :24;          //[32:8]
+    uint32_t :24;               //[32:8]
 } test_struct_0_exc_s;
 
 typedef struct {
